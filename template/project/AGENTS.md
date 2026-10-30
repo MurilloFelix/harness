@@ -55,6 +55,7 @@ Onde e como o dono executa os critérios **M** (o que a IA não consegue ver):
 
 - <Ex.: "Windows 11, com o app rodando elevado", "navegador real no celular", "dispositivo físico X".>
 - <Preparação padrão. Ex.: "saia da instância do dia a dia antes de testar o build da branch".>
+- <O que toda checklist precisa saber e não muda entre fatias. Ex.: em qual terminal os comandos rodam, onde ficam a configuração e os logs, como abrir a ferramenta de teste.>
 
 ## Critérios obrigatórios
 

@@ -28,11 +28,19 @@ Antes de tudo, rode `git branch --show-current`: você precisa estar na branch d
 - Os critérios são os do plano. **Não invente critérios.** Problemas que você notar fora deles vão em *Observações* e não mudam o resultado.
 - **Critério A:** rode o comando **exatamente** como escrito. Compare com o esperado. Registre o comando e o trecho relevante da saída.
 - **Critério I:** leia o código e cite `arquivo:linha` como evidência. Para regras do tipo "não existe X", mostre a busca que fez (padrão de `grep`) e o resultado.
-- **Critério M:** não execute e não julgue. Copie para a *Checklist manual* com a preparação, os passos e o resultado esperado.
+- **Critério M:** não execute e não julgue se o produto passa. Copie a preparação e os itens do plano para a *Checklist manual* e confira a checklist (próxima seção).
 - Rode também todos os comandos da **Verificação** do `AGENTS.md`.
 - Se o ambiente não permitir verificar (sem rede, fora do ambiente certo, ferramenta ausente), marque **NÃO VERIFICADO** com o motivo. **Nunca marque PASSOU por suposição**, nem porque "o código parece certo".
 - Critério ambíguo: marque **NÃO VERIFICADO**, explique a ambiguidade e diga qual leitura você testou, se testou alguma.
 - No fim, rode `git status --porcelain` e inclua a saída, para provar que você só criou o `verification-rN.md` desta rodada.
+
+## Conferência da checklist
+
+O dono tem de conseguir seguir a checklist sem abrir o chat, o plano ou outro arquivo (regras na seção M de `docs/plans/_template.md`). Leia-a como ele e, para cada item, confira no repositório o que dá para conferir sem executar: o comando, o arquivo, a opção, o menu e a mensagem existem com esse nome?
+
+- **Faltou instrução ou um nome mudou, e o repositório responde:** complete ou corrija o passo na checklist e marque o trecho com `(completado)`.
+- **O repositório não responde, ou o *Esperado* não bate com o código:** não adivinhe. Escreva em *Lacunas da checklist*. Você não muda o que o critério pede nem o *Esperado*.
+- **Item curto continua curto:** não acrescente preparação que ele não usa.
 
 ## Formato da verificação
 
@@ -66,15 +74,29 @@ Para cada FALHOU: o que era esperado, o que aconteceu, onde.
 
 - …
 
+## Lacunas da checklist
+
+- **M2, passo 3:** <o que falta para o dono seguir, ou o que o Esperado diz e o código não faz>
+
+Omita esta seção se não houver lacuna.
+
 ## Checklist manual (dono do projeto, <Ambiente manual do AGENTS.md>)
 
 Marque `[x]` ao executar. O merge exige todos marcados.
 
-Antes: <preparação do plano>
+Pasta da fatia: `<saída de git rev-parse --show-toplevel>`
+
+Se um passo falhar, ou se você não souber seguir: pare nele e abra um item em *Para o agente* no `pendencias.md`, com o item, o passo e o que apareceu. Não precisa investigar.
+
+**Preparação**
+
+<a preparação do plano, inteira, sem caixas de marcar; se o plano não tiver, "Nenhuma.">
 
 - [ ] **M1:** <critério>
-  Passos: …
+  1. …
+
   Esperado: …
+  Se falhar: … (só se o plano trouxer)
 
 ## git status
 
@@ -85,6 +107,6 @@ Antes: <preparação do plano>
 
 - `APROVADO`: todo A e I com PASSOU e a verificação padrão passando.
 - `REPROVADO`: qualquer A, I ou verificação padrão com FALHOU.
-- `INCOMPLETO`: nenhum FALHOU, mas algum NÃO VERIFICADO.
+- `INCOMPLETO`: nenhum FALHOU, mas algum NÃO VERIFICADO ou alguma lacuna na checklist.
 
-Os itens M não entram no resultado, porque são a checklist do dono. O dono marca a checklist na rodada `APROVADO`, que é a última.
+A execução dos itens M não entra no resultado, porque é do dono. O dono marca a checklist na rodada `APROVADO`, que é a última.

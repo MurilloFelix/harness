@@ -15,7 +15,7 @@ O caminho de um `plan.md` em `docs/plans/<fatia>/`, o caminho do **worktree** da
 ## Leia antes de criticar
 
 1. `AGENTS.md` (em especial **Regras**, **Ambiente manual**, **Critérios obrigatórios** e **Verificação**)
-2. `docs/workflow.md`
+2. `docs/workflow.md` e a seção M de `docs/plans/_template.md`
 3. `docs/architecture.md`, o **card** da fatia (`docs/board/cards/<id>-<slug>.md`, citado no plano) e o **épico** dele, se houver (`docs/board/epics/<slug>.md`)
 4. Todos os ADRs em `docs/adr/`
 5. O `plan.md` e, se existirem na pasta do plano, o `spike.md` (o que o spike observou vale como evidência, não como suposição), **todas** as críticas anteriores (`critique-r*.md`), para conferir o que cada rodada pediu, e o `pendencias.md`, se existir (respostas do dono valem como decisão; pedidos do dono em *Para o agente* precisam estar atendidos no plano)
@@ -31,6 +31,7 @@ O caminho de um `plan.md` em `docs/plans/<fatia>/`, o caminho do **worktree** da
    - algo marcado A/I que na prática só o dono verificaria no **Ambiente manual** (deveria ser M);
    - algo marcado **M** que poderia virar **A** com um teste ou uma mudança de desenho razoável. Diga como.
    - critério **M** cujos passos não batem com o que o dono vai realmente ver (texto de log, nome de menu, build certo, pré-condições).
+   - critério **M** que o dono não conseguiria seguir sem o chat, o plano ou outro arquivo: feature nova sem *Preparação*; "suba", "configure" ou "use a ferramenta X" sem dizer como; comando que não dá para copiar ou que não diz onde roda; valor que ele não sabe de onde sai (`<id>`, `<ip>`); *Esperado* vago. Proponha o texto. Não cobre preparação de mudança pequena em algo que já roda: item curto continua curto.
 4. **Lacunas:** comportamento prometido no *Objetivo* ou no *Desenho* sem critério; caminhos de erro sem critério; **Regras** do `AGENTS.md` relevantes sem critério; **Critérios obrigatórios** do `AGENTS.md` que se aplicam à fatia e faltam.
 5. **Conflitos** com ADRs aceitos, com o `AGENTS.md` ou com o `docs/workflow.md`. Uma decisão nova de arquitetura sem ADR também é bloqueante.
 6. **Escopo:** coisa demais para uma fatia; itens que deveriam estar em *Fora de escopo*; abstração criada antes do segundo uso; dependência nova sem justificativa.
@@ -46,7 +47,7 @@ O caminho de um `plan.md` em `docs/plans/<fatia>/`, o caminho do **worktree** da
 - **Nunca altere nem apague uma crítica anterior.** Cada rodada é um arquivo novo; o histórico mostra como o plano chegou até aqui.
 - Seja específico: cite a seção ou o id do critério (`A3`, `M1`) e proponha uma correção concreta.
 - Sem elogios genéricos. Se não houver bloqueantes, diga isso claramente.
-- **Bloqueante** = o plano não deve ser aprovado assim (ambiguidade em critério, lacuna em algo prometido, conflito com ADR, critério não verificável). O resto é **recomendação**.
+- **Bloqueante** = o plano não deve ser aprovado assim (ambiguidade em critério, lacuna em algo prometido, conflito com ADR, critério não verificável, critério M que o dono não consegue seguir sozinho). O resto é **recomendação**.
 - Não afirme como uma lib, ferramenta ou SO se comporta sem base no repositório ou na documentação: se for suposição, diga que é.
 
 ## Formato da crítica
