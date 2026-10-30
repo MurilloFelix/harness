@@ -2,19 +2,21 @@
 
 Instruções para qualquer agente de IA (Claude, Codex...) e para humanos trabalhando no **<nome do projeto>**. **Leia isto, [`docs/workflow.md`](docs/workflow.md) e [`docs/architecture.md`](docs/architecture.md) antes de escrever código.**
 
-O fluxo de trabalho (fatias, plano → crítica → implementação → verificação, branches, PR, definição de pronto) é o do Harness e está em [`docs/workflow.md`](docs/workflow.md). Este arquivo guarda só o que é **deste projeto**. Os agentes em `.claude/agents/` procuram as seções abaixo pelo nome: não as renomeie.
+O fluxo de trabalho (quadro de cards, tech lead, plano → crítica → implementação → verificação, branches, PR, definição de pronto) é o do Harness e está em [`docs/workflow.md`](docs/workflow.md). Este arquivo guarda só o que é **deste projeto**. Os agentes em `.claude/agents/` procuram as seções abaixo pelo nome: não as renomeie.
 
 ## O que é
 
-<1 parágrafo: o que o projeto faz, para quem, as peças principais e a stack.> Decisões em [`docs/adr/`](docs/adr/), plano em [`docs/roadmap/`](docs/roadmap/README.md).
+<1 parágrafo: o que o projeto faz, para quem, as peças principais e a stack.> Decisões em [`docs/adr/`](docs/adr/), trabalho no [quadro](docs/board/README.md).
 
 ## Mapa do repo
 
 ```
 <pasta>        <o que mora nela>
-docs/          arquitetura, roadmap, ADRs, workflow
-docs/plans/    um plano por fatia: plan.md, critique.md, verification.md
+docs/          arquitetura, ADRs, workflow
+docs/board/    o quadro: cards/<id>-<slug>.md e epics/<slug>.md
+docs/plans/    um plano por fatia: plan.md, critique-rN.md, verification-rN.md (e spike.md, pendencias.md, se houver)
 .claude/agents/ subagentes do fluxo: plan-critic, slice-implementer, plan-verifier
+.claude/commands/ /ciclo (o tech lead avança o quadro) e /quadro (só mostra)
 ```
 
 ## Regras
@@ -69,8 +71,16 @@ O autor do plano inclui, e o crítico cobra, estes critérios sempre que a fatia
 | Branch de integração | `dev` |
 | Branch estável | `main` |
 | Prefixo de fatia | `slice/<id>-<slug>` |
-| Prefixo de correção | `fix/<slug>` |
+| Prefixo de correção | `fix/<id>-<slug>` |
+| Pasta dos worktrees | `.worktrees/` <(no `.gitignore`, para as buscas e o git ignorarem as cópias)> |
+| Trilhas (fatias implementando, até o merge) | 1 <(ou mais: só fatias que não mexem nos mesmos módulos nem pastas)> |
+| Planos abertos (planejando, em crítica ou esperando o dono) | 2 |
+| Rodadas de crítica antes de chamar o dono | 4 |
+| Rodadas de verificação antes de chamar o dono | 3 |
+| Arquivos comuns entre trilhas | <arquivos que toda fatia costuma tocar: arquitetura, índice de ADRs, `AGENTS.md`, arquivos gerados e como regenerá-los> |
 | Dono (aprova e faz merge) | <nome> |
+
+Testes esperando o dono nunca passam do número de trilhas: a trilha só é liberada no merge.
 
 ## Definição de pronto (extras do projeto)
 

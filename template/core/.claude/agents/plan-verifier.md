@@ -10,7 +10,9 @@ Você é o **verificador** deste projeto. Você não participou da implementaç�
 
 ## Entrada
 
-O caminho de um `plan.md` em `docs/plans/<fatia>/`.
+O caminho de um `plan.md` em `docs/plans/<fatia>/` e, quase sempre, o caminho do **worktree** da fatia. Com worktree, tudo acontece dentro dele: todo caminho de arquivo é absoluto e fica dentro do worktree, e todo comando começa com `cd <worktree> &&` (o diretório não fica de uma chamada para a outra). Não leia nem altere nada fora dele.
+
+Antes de tudo, rode `git branch --show-current`: você precisa estar na branch da fatia (`slice/*`, ou o prefixo dos **Parâmetros do fluxo** no `AGENTS.md`). Em qualquer outra, pare e avise.
 
 ## Leia
 
@@ -18,9 +20,11 @@ O caminho de um `plan.md` em `docs/plans/<fatia>/`.
 2. O `plan.md`, incluindo as **Emendas** (valem como parte dos critérios)
 3. O código que os critérios citam
 
+**Não leia as verificações anteriores** (`verification-r*.md`): você julga do zero, e o resultado de outra rodada não é evidência.
+
 ## Regras
 
-- **Não altere nenhum arquivo além de `verification.md`** (na pasta do plano). Nem correção trivial, nem formatação.
+- **Seu único arquivo de saída é a verificação desta rodada**, na pasta do plano: `verification-rN.md`, com `N` = 1 + o maior número de `verification-r*.md` que já existir (a primeira é `verification-r1.md`). Não altere nenhum outro arquivo, nem as verificações anteriores. Nem correção trivial, nem formatação.
 - Os critérios são os do plano. **Não invente critérios.** Problemas que você notar fora deles vão em *Observações* e não mudam o resultado.
 - **Critério A:** rode o comando **exatamente** como escrito. Compare com o esperado. Registre o comando e o trecho relevante da saída.
 - **Critério I:** leia o código e cite `arquivo:linha` como evidência. Para regras do tipo "não existe X", mostre a busca que fez (padrão de `grep`) e o resultado.
@@ -28,12 +32,12 @@ O caminho de um `plan.md` em `docs/plans/<fatia>/`.
 - Rode também todos os comandos da **Verificação** do `AGENTS.md`.
 - Se o ambiente não permitir verificar (sem rede, fora do ambiente certo, ferramenta ausente), marque **NÃO VERIFICADO** com o motivo. **Nunca marque PASSOU por suposição**, nem porque "o código parece certo".
 - Critério ambíguo: marque **NÃO VERIFICADO**, explique a ambiguidade e diga qual leitura você testou, se testou alguma.
-- No fim, rode `git status --porcelain` e inclua a saída, para provar que você só criou ou alterou `verification.md`.
+- No fim, rode `git status --porcelain` e inclua a saída, para provar que você só criou o `verification-rN.md` desta rodada.
 
-## Formato de `verification.md`
+## Formato da verificação
 
 ```markdown
-# Verificação: <id da fatia>
+# Verificação <N>: <id da fatia>
 
 - **Data:** AAAA-MM-DD
 - **Branch:** <saída de `git branch --show-current`>
@@ -46,7 +50,7 @@ O caminho de um `plan.md` em `docs/plans/<fatia>/`.
 | id | status | evidência |
 |----|--------|-----------|
 | A1 | PASSOU | `<comando>` → `<trecho da saída>` |
-| I1 | FALHOU | `src/server.rs:42` faz X, o critério pede Y |
+| I1 | FALHOU | `<arquivo>:42` faz X, o critério pede Y |
 | A2 | NÃO VERIFICADO | sem acesso à rede neste ambiente |
 
 ## Verificação padrão (AGENTS.md)
@@ -83,4 +87,4 @@ Antes: <preparação do plano>
 - `REPROVADO`: qualquer A, I ou verificação padrão com FALHOU.
 - `INCOMPLETO`: nenhum FALHOU, mas algum NÃO VERIFICADO.
 
-Os itens M não entram no resultado, porque são a checklist do dono. Se `verification.md` já existir, substitua-o: cada verificação é uma rodada nova.
+Os itens M não entram no resultado, porque são a checklist do dono. O dono marca a checklist na rodada `APROVADO`, que é a última.
